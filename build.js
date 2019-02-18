@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -24,19 +24,19 @@ var App = function (_React$Component) {
   }
 
   _createClass(App, [{
-    key: "onChangeHandle",
+    key: 'onChangeHandle',
     value: function onChangeHandle(event) {
       this.setState({ searchText: event.target.value });
     }
   }, {
-    key: "onSubmit",
+    key: 'onSubmit',
     value: function onSubmit(event) {
       var _this2 = this;
 
       event.preventDefault();
       var searchText = this.state.searchText;
 
-      var url = "https://api.github.com/search/users?q=" + searchText;
+      var url = 'https://api.github.com/search/users?q=' + searchText;
       fetch(url).then(function (response) {
         return response.json();
       }).then(function (responseJson) {
@@ -44,30 +44,67 @@ var App = function (_React$Component) {
       });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _this3 = this;
 
+      var divstyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center'
+      };
+
+      var formstyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: '#efebe1'
+      };
+
+      var labelstyle = {
+        fontSize: '25px',
+        textTransform: 'uppercase',
+        color: '#2d5f91',
+        fontWeight: 'bold'
+      };
+
+      var inputstyle = {
+        fontSize: '18px',
+        width: '300px',
+        margin: '10px',
+        border: '1px solid #ffb200'
+      };
+
       return React.createElement(
-        "div",
-        null,
+        'div',
+        { style: divstyle },
         React.createElement(
-          "form",
+          'form',
           { onSubmit: function onSubmit(event) {
               return _this3.onSubmit(event);
-            } },
+            }, style: formstyle },
           React.createElement(
-            "label",
-            { htmlFor: "searchText" },
-            "Search by user name"
+            'label',
+            { htmlFor: 'searchText', style: labelstyle },
+            'Search by user name'
           ),
-          React.createElement("input", {
-            type: "text",
-            id: "searchText",
+          React.createElement(
+            'p',
+            null,
+            'Naci\u015Bnij enter, aby wyszuka\u0107.'
+          ),
+          React.createElement('input', {
+            type: 'text',
+            id: 'searchText',
             onChange: function onChange(event) {
               return _this3.onChangeHandle(event);
             },
-            value: this.state.searchText })
+            value: this.state.searchText,
+            style: inputstyle,
+            placeholder: 'Tutaj wpisz wyszukiwan\u0105 nazw\u0119'
+          })
         ),
         React.createElement(UsersList, { users: this.state.users })
       );
@@ -87,16 +124,26 @@ var UsersList = function (_React$Component2) {
   }
 
   _createClass(UsersList, [{
-    key: "render",
+    key: 'render',
     value: function render() {
+
+      var divstyle = {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
+        maxWidth: '1200px'
+      };
+
       return React.createElement(
-        "div",
-        null,
+        'div',
+        { style: divstyle },
         this.users
       );
     }
   }, {
-    key: "users",
+    key: 'users',
     get: function get() {
       return this.props.users.map(function (user) {
         return React.createElement(User, { key: user.id, user: user });
@@ -117,15 +164,23 @@ var User = function (_React$Component3) {
   }
 
   _createClass(User, [{
-    key: "render",
+    key: 'render',
     value: function render() {
+
+      var divstyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '5px'
+      };
+
       return React.createElement(
-        "div",
-        null,
-        React.createElement("img", { src: this.props.user.avatar_url, style: { maxWidth: '100px' } }),
+        'div',
+        { style: divstyle },
+        React.createElement('img', { src: this.props.user.avatar_url, style: { maxWidth: '100px' } }),
         React.createElement(
-          "a",
-          { href: this.props.user.html_url, target: "_blank" },
+          'a',
+          { href: this.props.user.html_url, target: '_blank' },
           this.props.user.login
         )
       );
